@@ -9,12 +9,13 @@ const MODES = '(1,2,3,4,16,22)'; // AP, CM, RD, SD, CD, ranked AP — no turbo /
 // bracket from avg_rank_tier: 0 = Herald–Crusader, 1 = Archon–Legend, 2 = Ancient+
 const BR = `CASE WHEN avg_rank_tier >= 60 THEN 2 WHEN avg_rank_tier >= 40 THEN 1 ELSE 0 END`;
 
+const UA = 'Mozilla/5.0 (compatible; dota-lastpick/1.0; +https://github.com/dentaco/dota-lastpick)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function get(url, tries = 5) {
   for (let i = 0; i < tries; i++) {
     try {
-      const res = await fetch(url);
+      const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } });
       const body = await res.json();
       if (res.ok && !body.err) return body;
       console.warn(`  retry ${i + 1}: ${res.status} ${body.err || ''}`);
