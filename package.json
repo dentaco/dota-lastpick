@@ -1,0 +1,27 @@
+{
+  "name": "dota-lastpick",
+  "version": "1.0.0",
+  "description": "Last Pick \u2014 Dota 2 counter-pick helper",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "data": "node scripts/fetch-data.mjs 3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/three": "^0.169.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "three": "^0.169.0"
+  },
+  "private": true,
+  "type": "module"
+}

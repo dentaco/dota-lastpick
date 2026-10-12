@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Last Pick — Dota 2 counter picker</title>
+  <meta name="description" content="Enter both teams' Dota 2 picks and get the best last pick to counter the enemy draft, based on millions of recent ranked matches." />
+  <meta name="theme-color" content="#0b0a0d" />
+  <meta property="og:title" content="Last Pick — Dota 2 counter picker" />
+  <meta property="og:description" content="Best last pick for your draft, from ~2M recent ranked matches." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.cloudflare.steamstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <span class="mark" aria-hidden="true">◆</span>
+        <div>
+          <h1>Last Pick</h1>
+          <p class="tag">Counter their draft. Pick the hero that wins.</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="ghost" id="share" type="button">Copy link</button>
+        <button class="ghost" id="reset" type="button">Reset</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="left">
+        <div class="board panel">
+          <div class="team ally">
+            <div class="team-head"><span class="dot"></span>Your team</div>
+            <div class="slots" id="allySlots"></div>
+          </div>
+          <div class="versus" aria-hidden="true">VS</div>
+          <div class="team enemy">
+            <div class="team-head"><span class="dot"></span>Enemy team</div>
+            <div class="slots" id="enemySlots"></div>
+          </div>
+          <details class="bans" id="bansBox">
+            <summary>Bans <span id="banCount"></span></summary>
+            <div class="slots ban-slots" id="banSlots"></div>
+          </details>
+        </div>
+
+        <div class="controls panel">
+          <div class="ctl">
+            <label>I'm playing</label>
+            <div class="seg" id="posSeg" role="radiogroup" aria-label="Position"></div>
+          </div>
+          <div class="ctl">
+            <label for="bracket">Rank</label>
+            <select id="bracket"></select>
+          </div>
+        </div>
+
+        <div class="picker panel">
+          <div class="search">
+            <input id="q" type="search" placeholder="Type a hero… (pa, sf, am)" autocomplete="off" spellcheck="false" aria-label="Search hero" />
+            <div class="attr-seg" id="attrSeg"></div>
+          </div>
+          <div class="target" id="target"></div>
+          <div class="heroes" id="heroGrid" role="listbox" aria-label="Heroes"></div>
+        </div>
+      </section>
+
+      <section class="right">
+        <div class="results panel">
+          <div class="res-head">
+            <h2 id="resTitle">Best last picks</h2>
+            <span class="hint" id="resHint"></span>
+          </div>
+          <ol class="picks" id="picks"></ol>
+          <details class="avoid">
+            <summary>Worst picks into this draft</summary>
+            <ol class="picks small" id="avoid"></ol>
+          </details>
+          <p class="hidden-note" id="hiddenNote"></p>
+        </div>
+        <footer class="foot" id="foot"></footer>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
