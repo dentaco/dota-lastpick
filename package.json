@@ -1,13 +1,14 @@
 {
   "name": "dota-lastpick",
   "version": "1.0.0",
-  "description": "Last Pick \u2014 Dota 2 counter-pick helper",
+  "description": "Last Pick — Dota 2 counter-pick helper",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "data": "node scripts/fetch-data.mjs 3"
+    "data": "node scripts/fetch-data.mjs 3",
+    "security:verify": "node scripts/security-verify.mjs"
   },
   "keywords": [],
   "author": "",
