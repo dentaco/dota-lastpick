@@ -230,3 +230,4 @@ h2 { font-family: var(--display); font-size: 17px; letter-spacing: 0.06em; margi
 .reads-list .pname { font-weight: 600; }
 .reads-list .score { text-align: right; display: grid; }
 .reads-list .score small { color: var(--muted); font-size: 11px; }
+.reads[hidden] { display: none; }
