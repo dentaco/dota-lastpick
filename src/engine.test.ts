@@ -42,3 +42,20 @@ describe('engine', () => {
     expect(top).toContain('Anti-Mage');
   });
 });
+
+import { predictEnemy, banThreats } from './engine';
+describe('enemy reads', () => {
+  it('predictions are a probability share over available heroes', () => {
+    const draft = { allies: [id('Axe')], enemies: [id('Pudge'), id('Sniper')], bans: [id('Invoker')] };
+    const all = predictEnemy(m, draft, 500);
+    expect(all.length).toBe(data.heroes.length - 4);
+    expect(all.reduce((s, p) => s + p.chance, 0)).toBeCloseTo(1, 6);
+    expect(all[0].pick.vs.map((l) => l.hero)).toEqual(draft.allies);
+  });
+  it('ban threats score against your team', () => {
+    const draft = { allies: [id('Medusa'), id('Storm Spirit')], enemies: [], bans: [] };
+    const t = banThreats(m, draft, 10);
+    expect(t.length).toBe(10);
+    for (const x of t) expect(x.pick.vs.map((l) => l.hero)).toEqual(draft.allies);
+  });
+});

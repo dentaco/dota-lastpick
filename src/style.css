@@ -221,3 +221,12 @@ h2 { font-family: var(--display); font-size: 17px; letter-spacing: 0.06em; margi
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+.reads { margin-top: 14px; }
+.reads .res-head:not(:first-child) { margin-top: 18px; }
+.reads-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.reads-list li { display: grid; grid-template-columns: 64px 1fr auto; gap: 10px; align-items: center; }
+.reads-list .pic { width: 64px; height: 36px; border-radius: 6px; object-fit: cover; }
+.reads-list .pname { font-weight: 600; }
+.reads-list .score { text-align: right; display: grid; }
+.reads-list .score small { color: var(--muted); font-size: 11px; }

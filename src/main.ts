@@ -1,6 +1,6 @@
 import './style.css';
 import { gsap } from 'gsap';
-import { Model, type Bracket, type Data, type Draft, type Hero } from './engine';
+import { Model, banThreats, predictEnemy, type Bracket, type Data, type Draft, type Hero, type Pick } from './engine';
 import { POS_LABEL } from './positions';
 import { ATTR_COLOR, filterGrid, portrait, renderGrid } from './ui/picker';
 import { renderPicks } from './ui/results';
@@ -203,6 +203,24 @@ function renderResults() {
   lastResultKey = key;
 }
 
+// Enemy reads: only while the enemy still has picks left. Our team includes the locked-in pick.
+function renderReads() {
+  const d = draft();
+  const box = $('reads');
+  box.hidden = d.enemies.length >= 5;
+  if (box.hidden) return;
+  const team: Draft = { ...d, allies: state.you != null ? [...d.allies, state.you] : d.allies };
+  const beats = (p: Pick) => p.vs.filter((l) => l.value >= 0.8).sort((a, b) => b.value - a.value).slice(0, 3)
+    .map((l) => { const h = model.byId.get(l.hero)!; return `<span class="chip bad" title="beats ${h.name}"><img alt="" src="${portrait(h)}">+${l.value.toFixed(1)}</span>`; }).join('');
+  const row = (p: Pick, right: string, cap: string) => `<li><img class="pic" alt="" src="${portrait(p.hero)}" width="128" height="72">
+    <div class="pmain"><div class="pname">${p.hero.name}</div><div class="why">${beats(p)}</div></div>
+    <div class="score"><b>${right}</b><small>${cap}</small></div></li>`;
+  $('preds').innerHTML = predictEnemy(model, team).map((x) => row(x.pick, `${Math.round(x.chance * 100)}%`, 'chance')).join('');
+  $('bans').innerHTML = banThreats(model, team).map((x) => row(x.pick, `${x.value >= 0 ? '+' : '−'}${Math.abs(x.value).toFixed(1)}`, 'threat')).join('');
+  $('predHint').textContent = team.allies.length || team.enemies.length ? 'popularity + fit vs your team' : 'most likely in this bracket';
+  $('banHint').textContent = team.allies.length ? 'would hurt your draft most' : 'strongest heroes in this bracket';
+}
+
 function refreshGrid() {
   const best = filterGrid($('heroGrid'), model.byId, ($('q') as HTMLInputElement).value, state.attr, taken());
   const any = $('heroGrid').querySelector('.hero:not(.dim)');
@@ -214,6 +232,7 @@ function update(popped?: { team: Team; i: number }) {
   model = model.bracket === state.bracket ? model : new Model(data, state.bracket);
   renderBoard(popped);
   renderResults();
+  renderReads();
   refreshGrid();
   writeHash();
 }

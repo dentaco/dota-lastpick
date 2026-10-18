@@ -153,3 +153,47 @@ export function roleFit(hero: Hero, allies: Hero[]) {
   }
   return { bonus: Math.min(bonus, 1.5), notes };
 }
+
+export interface Prediction { pick: Pick; chance: number }
+export interface Threat { pick: Pick; value: number }
+
+const flip = (d: Draft): Draft => ({ allies: d.enemies, enemies: d.allies, bans: d.bans });
+
+/** Total matches in this bracket (each match has 10 heroes). */
+function matchesOf(m: Model) {
+  return m.data.heroes.reduce((s, h) => s + m.games(h.id), 0) / 10;
+}
+
+export const pickRate = (m: Model, id: number) => {
+  const total = matchesOf(m);
+  return total ? m.games(id) / total : 0;
+};
+
+/** Enemy's likely next pick: log pick rate + 0.45 × how well the hero fits their draft vs yours, softmaxed over ALL available
+ * heroes. `chance` is each hero's share of that whole field, so the returned top `limit` intentionally sums to less than 1. */
+export function predictEnemy(m: Model, draft: Draft, limit = 6): Prediction[] {
+  const theirs = flip(draft);
+  const taken = new Set([...draft.allies, ...draft.enemies, ...draft.bans]);
+  const total = matchesOf(m);
+  const scored = m.data.heroes.filter((h) => !taken.has(h.id)).map((h) => {
+    const p = m.score(h.id, theirs);
+    return { p, logit: Math.log(Math.max(total ? m.games(h.id) / total : 0, 0.002)) + 0.45 * p.total };
+  });
+  if (!scored.length) return [];
+  const top = Math.max(...scored.map((s) => s.logit));
+  const z = scored.reduce((s, x) => s + Math.exp(x.logit - top), 0);
+  return scored.sort((a, b) => b.logit - a.logit).slice(0, limit).map((s) => ({ pick: s.p, chance: Math.exp(s.logit - top) / z }));
+}
+
+/** Ban suggestions: own win-rate edge + matchups vs your heroes, nudged toward heroes people actually play. */
+export function banThreats(m: Model, draft: Draft, limit = 5): Threat[] {
+  const theirs = flip(draft);
+  const taken = new Set([...draft.allies, ...draft.enemies, ...draft.bans]);
+  const total = matchesOf(m);
+  const mean = 10 / Math.max(m.data.heroes.length, 1);
+  return m.data.heroes.filter((h) => !taken.has(h.id)).map((h) => {
+    const p = m.score(h.id, theirs);
+    const pop = Math.min(Math.max(Math.log(Math.max(total ? m.games(h.id) / total : 0, 0.002) / mean), -2), 2);
+    return { pick: p, value: p.base + p.counter + 0.8 * pop };
+  }).sort((a, b) => b.value - a.value).slice(0, limit);
+}

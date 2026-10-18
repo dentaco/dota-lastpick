@@ -4,7 +4,7 @@
 // Fails (exit 1) when a private route answers with data (status AND body size are checked), when a
 // dotfile is served, or when a secret-looking string shows up in the page or its JS bundles.
 const BASE = (process.env.BASE ?? "https://dota-last-pick.vercel.app").replace(/\/$/, "");
-const PAGES = ["/"];
+const PAGES = ["/", "/privacy", "/support"];
 const PROBES = [];
 
 const SECRET_PATTERNS = [
