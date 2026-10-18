@@ -1,0 +1,74 @@
+name: LastPick
+options:
+  bundleIdPrefix: com.dentaco
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    DEVELOPMENT_TEAM: ZBALKH9DFV
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    TARGETED_DEVICE_FAMILY: "1"
+targets:
+  LastPick:
+    type: application
+    platform: iOS
+    sources:
+      - path: LastPick/Sources
+      - path: LastPick/Resources
+        buildPhase: resources
+        excludes:
+          - "Info.plist"
+          - "Portraits/**"
+      - path: LastPick/Resources/Portraits
+        type: folder
+        buildPhase: resources
+    preBuildScripts:
+      # The app ships the newest data snapshot; it refreshes itself from the web app afterwards.
+      - name: Sync data snapshot
+        script: cp "$SRCROOT/../public/data.json" "$SRCROOT/LastPick/Resources/data.json"
+        inputFiles: [$(SRCROOT)/../public/data.json]
+        outputFiles: [$(SRCROOT)/LastPick/Resources/data.json]
+        basedOnDependencyAnalysis: false
+    info:
+      path: LastPick/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Last Pick
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSApplicationCategoryType: public.app-category.reference
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIRequiresFullScreen: true
+        UIUserInterfaceStyle: Dark
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dentaco.lastpick
+        # Target level on purpose: XcodeGen's iOS target default ("1,2") overrides the project-level value.
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        ENABLE_PREVIEWS: YES
+  LastPickTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [LastPickTests]
+    dependencies:
+      - target: LastPick
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+schemes:
+  LastPick:
+    build:
+      targets:
+        LastPick: all
+        LastPickTests: [test]
+    test:
+      targets: [LastPickTests]

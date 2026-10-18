@@ -1,0 +1,32 @@
+Thank you for reviewing Last Pick. No account or sign-in is needed, and everything is reachable from the first screen.
+
+1. WHAT IT IS AND WHO IT IS FOR
+Last Pick is a draft helper for players of the PC game Dota 2. In Dota 2 two teams of five pick heroes one after another. The player who picks last can counter the enemy's heroes. Last Pick tells them which hero to pick, using statistics from about two million recent ranked matches, and explains every suggestion matchup by matchup. It's free, with no purchases, ads, accounts or tracking.
+
+2. HOW TO REACH EACH FEATURE
+- Draft tab: tap any "+" slot, then tap heroes (or type, e.g. "pa" or "axe"). The picker fills each slot and moves to the next one. Fill the enemy team and some of "Your team". "Best last picks" updates instantly. Tap a suggestion to see its breakdown, then "Lock in". Position (1 to 5) and Rank filters sit above the list.
+- While the enemy team has fewer than 5 heroes, "They might pick next" and "Ban suggestions" appear below the list.
+- Meta tab: tier list by position and rank. Tap a hero for its page.
+- Heroes tab: search any hero to see who counters it, who it beats and its best teammates.
+- More tab: data status ("Check for new data"), hero pool, hidden heroes, how the scores work, Privacy Policy, Support.
+
+3. EXTERNAL SERVICES
+The app downloads a public statistics file from our own website (dota-last-pick.vercel.app/data.json), rebuilt daily from OpenDota's public match data. It contains no personal data, and a copy ships in the app so it works offline. Hero portraits are bundled. Only heroes released after this build load a portrait from Valve's public Steam image server. There is no analytics, advertising or AI service.
+
+4. REGIONAL DIFFERENCES
+None.
+
+5. THIRD-PARTY CONTENT
+Hero names and portraits are Valve's Dota 2 game content, used in a free, non-commercial fan tool with credit ("Dota 2 is a trademark of Valve Corporation; not affiliated with Valve" on the Draft and More screens), in the same way as the many Dota 2 companion apps already on the App Store. Match statistics come from OpenDota's public API and are credited in the app.
+
+6. WHAT MAKES IT DIFFERENT, AND TESTING
+- Every suggestion is explained: each matchup's contribution and the number of games behind it, so players can judge it rather than trust a black box.
+- It reads the enemy, too: likely next picks and ban suggestions, not only counters.
+- Statistics are split by rank bracket and rebuilt daily from the last three days of ranked matches, so they follow balance patches within days.
+- Native SwiftUI app, fully offline-capable.
+Testing: the same scoring engine has run on the web version (dota-last-pick.vercel.app) since 12 October 2026. The iOS app was tested in the iPhone simulator, with automated tests for the scoring engine, before this TestFlight build. It's a solo project with no formal beta group.
+
+ABOUT THIS DEVELOPER ACCOUNT
+Last Pick is my own app, built and published by me personally. It shares no code, design or content with any other app on this account (the others are language-learning, chess, news and productivity apps). It's not built for a client and not made with an app builder or template.
+
+Contact during review: Alex Znamenskiy, +971 52 530 0996, dentaco.alex@gmail.com

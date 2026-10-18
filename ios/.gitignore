@@ -1,0 +1,4 @@
+*.xcodeproj
+.build/
+LastPick/Resources/data.json
+LastPick/Resources/Info.plist
