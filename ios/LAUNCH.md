@@ -10,7 +10,7 @@ Native SwiftUI (XcodeGen, iOS 17+), not a web wrapper: the account has 4.2.2 / 4
 ## Blocked on Alex
 - [x] (2026-10-20, created by Claude in the web UI) Create the App Store Connect record (API can't: POST /v1/apps is 403 for every key; web UI works) — appstoreconnect.apple.com → Apps → + New App → iOS · Name **Last Pick for Dota 2** · English (U.S.) · Bundle ID **com.dentaco.lastpick** · SKU **lastpick** · Full access. Blocks: upload, listing, TestFlight.
 - [ ] App Privacy questionnaire (web UI only): answered "No" + privacy URL set 2026-10-20; Alex presses the final Publish. Blocks: submission.
-- [ ] Say go for Submit for Review — Hirostar Growth 1.0 got its verdict (REJECTED, seen 10-20), so the one-at-a-time hold is lifted. Blocks: release.
+- [ ] Say go for Submit for Review — Hirostar Growth 1.0 got its verdict (REJECTED, seen 10-20), but it (and SBA 1.0) were rejected 4.3(a) SPAM with an Extended Review / removal warning. ⛔ Alex 2026-10-20: HOLD — do not submit until the spam cause is understood. Blocks: release.
 
 ## Pre-flight
 - [x] bundle ID final   - [x] build number bumped by `scripts/ios-release.sh`   - [x] supportsTablet: iPhone-only (TARGETED_DEVICE_FAMILY 1, checked in release script)
