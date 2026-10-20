@@ -2,15 +2,15 @@
 
 **Stage:** config → TestFlight (submission held: one new app in review at a time on this account)
 **Developer account:** Alex Znamenskiy, Individual (team ZBALKH9DFV), Alex = Account Holder. Personal app, not a client app.
-**Bundle ID:** com.dentaco.lastpick    **ASC App ID:** (record not created yet)    **Current version/build:** 1.0 (1)
+**Bundle ID:** com.dentaco.lastpick    **ASC App ID:** 6824807236    **Current version/build:** 1.0 (2)
 **Payments model:** none — free, no IAP, no ads.
 
 Native SwiftUI (XcodeGen, iOS 17+), not a web wrapper: the account has 4.2.2 / 4.3 history from Capacitor shells.
 
 ## Blocked on Alex
-- [ ] Create the App Store Connect record (API can't: POST /v1/apps is 403) — appstoreconnect.apple.com → Apps → + New App → iOS · Name **Last Pick for Dota 2** · English (U.S.) · Bundle ID **com.dentaco.lastpick** · SKU **lastpick** · Full access. Blocks: upload, listing, TestFlight.
-- [ ] App Privacy questionnaire (web UI only): "No, we do not collect data" → Publish. Blocks: submission.
-- [ ] Say go for Submit for Review — only after Hirostar Growth 1.0 (new app, in review since 10-13) gets its verdict. Blocks: release.
+- [x] (2026-10-20, created by Claude in the web UI) Create the App Store Connect record (API can't: POST /v1/apps is 403 for every key; web UI works) — appstoreconnect.apple.com → Apps → + New App → iOS · Name **Last Pick for Dota 2** · English (U.S.) · Bundle ID **com.dentaco.lastpick** · SKU **lastpick** · Full access. Blocks: upload, listing, TestFlight.
+- [ ] App Privacy questionnaire (web UI only): answered "No" + privacy URL set 2026-10-20; Alex presses the final Publish. Blocks: submission.
+- [ ] Say go for Submit for Review — Hirostar Growth 1.0 got its verdict (REJECTED, seen 10-20), so the one-at-a-time hold is lifted. Blocks: release.
 
 ## Pre-flight
 - [x] bundle ID final   - [x] build number bumped by `scripts/ios-release.sh`   - [x] supportsTablet: iPhone-only (TARGETED_DEVICE_FAMILY 1, checked in release script)
@@ -45,3 +45,4 @@ Native SwiftUI (XcodeGen, iOS 17+), not a web wrapper: the account has 4.2.2 / 4
 
 ## Log
 - 2026-10-19: Native app built (engine port + enemy next-pick odds, ban suggestions, meta tiers, hero matchups, hero pool, offline data with 6-hourly refresh). 12 XCTests + 7 vitest pass. Signed IPA builds. Bundle id + profile registered. Web: privacy/support pages + enemy reads deployed. Next: ASC record → upload b2 → listing → hold for Hirostar Growth verdict → submit.
+- 2026-10-20: ASC record 6824807236 created (web UI). Build 2 uploaded → VALID, listing + 5 screenshots + Free + 148 territories pushed, build attached, internal TestFlight group + russkiytv@icloud.com invited. App Privacy answered; Alex presses Publish. Not submitted.
