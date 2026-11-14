@@ -8,7 +8,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "data": "node scripts/fetch-data.mjs 3",
-    "security:verify": "node scripts/security-verify.mjs"
+    "security:verify": "node scripts/security-verify.mjs",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run test"
   },
   "keywords": [],
   "author": "",
